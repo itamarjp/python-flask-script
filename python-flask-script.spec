@@ -2,7 +2,7 @@
 
 Name:       python-flask-script
 Version:    0.5.3
-Release:    3%{?dist}
+Release:    4%{?dist}
 Summary:    Scripting support for Flask
 
 License:    BSD
@@ -15,6 +15,7 @@ BuildRequires:  python-setuptools
 # for check purpose nose is needed
 BuildRequires:  python-nose
 BuildRequires:  python-flask
+BuildRequires:  python-sphinx
 Requires:       python-flask
 
 %description
@@ -48,11 +49,14 @@ rm -f _build/html/.buildinfo
 %{python_sitelib}/flask_script/*.py*
 
 %changelog
+* Tue Aug 06 2013 Robert Kuska <rkuska@redhat.com> - 0.5.3-4
+- Fix BuildRequires
+
 * Sun Aug 04 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.5.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_20_Mass_Rebuild
 
-* Tue Apr 02 2013 Robert Kuska <rkuska@redhat.com> 0.5.3-2
+* Tue Apr 02 2013 Robert Kuska <rkuska@redhat.com> - 0.5.3-2
 - Review fixes
 
-* Thu Mar 21 2013 Robert Kuska <rkuska@redhat.com> 0.5.3-1
+* Thu Mar 21 2013 Robert Kuska <rkuska@redhat.com> - 0.5.3-1
 - Initial package
