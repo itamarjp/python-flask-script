@@ -5,7 +5,7 @@
 %endif
 
 Name:       python-flask-script
-Version:    0.6.2
+Version:    0.6.7
 Release:    1%{?dist}
 Summary:    Scripting support for Flask
 
@@ -105,6 +105,9 @@ popd
 %endif
 
 %changelog
+* Mon Apr 28 2014 Robert Kuska <rkuska@redhat.com> - 0.6.7-1
+- Update to 0.6.7
+
 * Wed Sep 25 2013 Robert Kuska <rkuska@redhat.com> - 0.6.2-1
 - Updated source to latest upstream version and added python3 support
 
