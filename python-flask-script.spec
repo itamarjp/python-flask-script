@@ -6,7 +6,7 @@
 
 Name:       python-flask-script
 Version:    0.6.7
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    Scripting support for Flask
 
 License:    BSD
@@ -105,6 +105,9 @@ popd
 %endif
 
 %changelog
+* Sat Jun 07 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.6.7-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_21_Mass_Rebuild
+
 * Fri May 16 2014 Robert Kuska <rkuska@redhat.com> - 0.6.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Changes/Python_3.4
 
