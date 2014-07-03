@@ -5,8 +5,8 @@
 %endif
 
 Name:       python-flask-script
-Version:    0.6.7
-Release:    4%{?dist}
+Version:    2.0.5
+Release:    1%{?dist}
 Summary:    Scripting support for Flask
 
 License:    BSD
@@ -19,12 +19,14 @@ BuildRequires:  python-setuptools
 BuildRequires:  pytest
 BuildRequires:  python-flask
 BuildRequires:  python-sphinx
+BuildRequires:  pytest
 %if 0%{?with_python3}
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 BuildRequires:  python3-pytest
 BuildRequires:  python3-flask
 BuildRequires:  python3-sphinx
+BuildRequires:  python3-pytest
 %endif
 Requires:       python-flask
 
@@ -58,7 +60,7 @@ cp -a . %{py3dir}
 %endif
 
 %build
-%{__python} setup.py build
+%{__python2} setup.py build
 # generate sphinx documentation
 cd docs && make html
 # deleting unneeded buildinfo, we dont expect users to change html docs
@@ -73,16 +75,15 @@ popd
 %endif
 
 %check
-%{__python} setup.py test
-
+py.test-%{python2_version} tests.py
 %if 0%{?with_python3}
 pushd %{py3dir}
-%{__python3} setup.py test
+py.test-%{python3_version} tests.py
 popd
 %endif
 
 %install
-%{__python} setup.py install -O1 --skip-build --root $RPM_BUILD_ROOT
+%{__python2} setup.py install -O1 --skip-build --root $RPM_BUILD_ROOT
 
 %if 0%{?with_python3}
 pushd %{py3dir}
@@ -93,8 +94,8 @@ popd
 
 %files
 %doc docs/_build/html README.rst LICENSE 
-%{python_sitelib}/*.egg-info/
-%{python_sitelib}/flask_script/*.py*
+%{python2_sitelib}/*.egg-info/
+%{python2_sitelib}/flask_script/*.py*
 
 %if 0%{?with_python3}
 %files -n python3-flask-script
@@ -104,6 +105,9 @@ popd
 %endif
 
 %changelog
+* Thu Jul 03 2014 Robert Kuska <rkuska@redhat.com> - 2.0.5-1
+- Updated to 2.0.5
+
 * Thu Jul 03 2014 Robert Kuska <rkuska@redhat.com> - 0.6.7-4
 - Move Python 3 Requires into correct place
 
