@@ -6,7 +6,7 @@
 
 Name:       python-flask-script
 Version:    0.6.7
-Release:    3%{?dist}
+Release:    4%{?dist}
 Summary:    Scripting support for Flask
 
 License:    BSD
@@ -27,9 +27,6 @@ BuildRequires:  python3-flask
 BuildRequires:  python3-sphinx
 %endif
 Requires:       python-flask
-%if 0%{?with_python3}
-Requires:       python3-flask
-%endif
 
 %description
 The Flask-Script extension provides support for writing external scripts in
@@ -40,6 +37,8 @@ belong outside the web application itself.
 %if 0%{?with_python3}
 %package -n python3-flask-script
 Summary:    Scripting support for flask in python3-flask
+
+Requires:       python3-flask
 
 %description -n python3-flask-script
 The Flask-Script extension provides support for writing external scripts in
@@ -105,6 +104,9 @@ popd
 %endif
 
 %changelog
+* Thu Jul 03 2014 Robert Kuska <rkuska@redhat.com> - 0.6.7-4
+- Move Python 3 Requires into correct place
+
 * Sat Jun 07 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.6.7-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_21_Mass_Rebuild
 
