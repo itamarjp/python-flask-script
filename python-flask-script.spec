@@ -6,7 +6,7 @@
 
 Name:       python-flask-script
 Version:    2.0.5
-Release:    8%{?dist}
+Release:    9%{?dist}
 Summary:    Scripting support for Flask
 
 License:    BSD
@@ -28,13 +28,21 @@ BuildRequires:  python3-flask
 BuildRequires:  python3-sphinx
 BuildRequires:  python3-pytest
 %endif
-Requires:       python-flask
 
-%description
-The Flask-Script extension provides support for writing external scripts in
-Flask.This includes running a development server, a customized Python shell,
-scripts to set up your database, cronjobs, and other command-line tasks that
+%global _description\
+The Flask-Script extension provides support for writing external scripts in\
+Flask.This includes running a development server, a customized Python shell,\
+scripts to set up your database, cronjobs, and other command-line tasks that\
 belong outside the web application itself.
+
+%description %_description
+
+%package -n python2-flask-script
+Summary: %summary
+Requires:       python-flask
+%{?python_provide:%python_provide python2-flask-script}
+
+%description -n python2-flask-script %_description
 
 %if 0%{?with_python3}
 %package -n python3-flask-script
@@ -92,7 +100,7 @@ popd
 %endif
 
 
-%files
+%files -n python2-flask-script
 %doc docs/_build/html README.rst LICENSE 
 %{python2_sitelib}/*.egg-info/
 %{python2_sitelib}/flask_script/*.py*
@@ -105,6 +113,10 @@ popd
 %endif
 
 %changelog
+* Sat Aug 19 2017 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.0.5-9
+- Python 2 binary package renamed to python2-flask-script
+  See https://fedoraproject.org/wiki/FinalizingFedoraSwitchtoPython3
+
 * Thu Jul 27 2017 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.5-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
 
