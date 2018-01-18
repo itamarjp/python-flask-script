@@ -6,7 +6,7 @@
 
 Name:       python-flask-script
 Version:    2.0.5
-Release:    9%{?dist}
+Release:    10%{?dist}
 Summary:    Scripting support for Flask
 
 License:    BSD
@@ -15,11 +15,11 @@ Source0:    https://pypi.python.org/packages/source/F/%{mod_name}/%{mod_name}-%{
 
 BuildArch:  noarch
 BuildRequires:  python2-devel
-BuildRequires:  python-setuptools
-BuildRequires:  pytest
-BuildRequires:  python-flask
-BuildRequires:  python-sphinx
-BuildRequires:  pytest
+BuildRequires:  python2-setuptools
+BuildRequires:  python2-pytest
+BuildRequires:  python2-flask
+BuildRequires:  python2-sphinx
+BuildRequires:  python2-pytest
 %if 0%{?with_python3}
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
@@ -39,7 +39,7 @@ belong outside the web application itself.
 
 %package -n python2-flask-script
 Summary: %summary
-Requires:       python-flask
+Requires:       python2-flask
 %{?python_provide:%python_provide python2-flask-script}
 
 %description -n python2-flask-script %_description
@@ -113,6 +113,10 @@ popd
 %endif
 
 %changelog
+* Thu Jan 18 2018 Iryna Shcherbina <ishcherb@redhat.com> - 2.0.5-10
+- Update Python 2 dependency declarations to new packaging standards
+  (See https://fedoraproject.org/wiki/FinalizingFedoraSwitchtoPython3)
+
 * Sat Aug 19 2017 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.0.5-9
 - Python 2 binary package renamed to python2-flask-script
   See https://fedoraproject.org/wiki/FinalizingFedoraSwitchtoPython3
