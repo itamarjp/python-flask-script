@@ -6,7 +6,7 @@
 
 Name:       python-flask-script
 Version:    2.0.5
-Release:    10%{?dist}
+Release:    11%{?dist}
 Summary:    Scripting support for Flask
 
 License:    BSD
@@ -113,6 +113,9 @@ popd
 %endif
 
 %changelog
+* Fri Feb 09 2018 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.5-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
+
 * Thu Jan 18 2018 Iryna Shcherbina <ishcherb@redhat.com> - 2.0.5-10
 - Update Python 2 dependency declarations to new packaging standards
   (See https://fedoraproject.org/wiki/FinalizingFedoraSwitchtoPython3)
