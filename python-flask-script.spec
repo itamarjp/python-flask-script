@@ -1,12 +1,8 @@
 %global mod_name Flask-Script
 
-%if 0%{?fedora} > 12
-%global with_python3 1
-%endif
-
 Name:       python-flask-script
 Version:    2.0.5
-Release:    11%{?dist}
+Release:    12%{?dist}
 Summary:    Scripting support for Flask
 
 License:    BSD
@@ -20,14 +16,16 @@ BuildRequires:  python2-pytest
 BuildRequires:  python2-flask
 BuildRequires:  python2-sphinx
 BuildRequires:  python2-pytest
-%if 0%{?with_python3}
-BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-BuildRequires:  python3-pytest
-BuildRequires:  python3-flask
-BuildRequires:  python3-sphinx
-BuildRequires:  python3-pytest
+
+BuildRequires:  python%{python3_pkgversion}-devel
+BuildRequires:  python%{python3_pkgversion}-setuptools
+BuildRequires:  python%{python3_pkgversion}-pytest
+BuildRequires:  python%{python3_pkgversion}-flask
+%if 0%{?fedora} >= 27
+BuildRequires:  python%{python3_pkgversion}-sphinx
+#epel7 doesn't have python34-sphinx
 %endif
+BuildRequires:  python%{python3_pkgversion}-pytest
 
 %global _description\
 The Flask-Script extension provides support for writing external scripts in\
@@ -44,28 +42,24 @@ Requires:       python2-flask
 
 %description -n python2-flask-script %_description
 
-%if 0%{?with_python3}
-%package -n python3-flask-script
+%package -n python%{python3_pkgversion}-flask-script
 Summary:    Scripting support for flask in python3-flask
 
-Requires:       python3-flask
+Requires:       python%{python3_pkgversion}-flask
 
-%description -n python3-flask-script
+%description -n python%{python3_pkgversion}-flask-script
 The Flask-Script extension provides support for writing external scripts in
 Flask.This includes running a development server, a customized Python shell,
 scripts to set up your database, cronjobs, and other command-line tasks that
 belong outside the web application itself.
-%endif
 
 %prep
 %setup -q -n %{mod_name}-%{version}
 # delete the mac's .ds_store file
 rm -f docs/.DS_Store
 
-%if 0%{?with_python3}
 rm -rf %{py3dir}
 cp -a . %{py3dir}
-%endif
 
 %build
 %{__python2} setup.py build
@@ -74,13 +68,11 @@ cd docs && make html
 # deleting unneeded buildinfo, we dont expect users to change html docs
 rm -f _build/html/.buildinfo
 
-%if 0%{?with_python3}
 pushd %{py3dir}
 %{__python3} setup.py build
 cd docs && make html
 rm -f _build/html/.buildinfo
 popd
-%endif
 
 %check
 py.test-%{python2_version} tests.py
@@ -93,11 +85,9 @@ popd
 %install
 %{__python2} setup.py install -O1 --skip-build --root $RPM_BUILD_ROOT
 
-%if 0%{?with_python3}
 pushd %{py3dir}
 %{__python3} setup.py install -O1 --skip-build --root $RPM_BUILD_ROOT
 popd
-%endif
 
 
 %files -n python2-flask-script
@@ -105,14 +95,16 @@ popd
 %{python2_sitelib}/*.egg-info/
 %{python2_sitelib}/flask_script/*.py*
 
-%if 0%{?with_python3}
-%files -n python3-flask-script
+%files -n python%{python3_pkgversion}-flask-script
 %doc docs/_build/html README.rst LICENSE 
 %{python3_sitelib}/*.egg-info/
 %{python3_sitelib}/flask_script
-%endif
 
 %changelog
+* Fri Feb 16 2018 Itamar Reis Peixoto <itamar@ispbrasil.com.br> - 2.0.5-12
+- make spec file compatible with epel7
+- always build for python 3
+
 * Fri Feb 09 2018 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.5-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
 
